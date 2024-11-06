@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <script src="nik_norman.js" defer></script>
+    <style>
+        .error { color: red; display: none; }
+        .success { color: green; display: none; }
+        label.required::after { content: " *"; color: red; }
+        .correct-answer { font-style: italic; margin-top: 5px; }
+    </style>
+</head>
+<body>
+<h1>Welcome to the quiz!</h1>
+<form id="quizForm">
+    <fieldset>
+        <legend>Student information</legend>
+        <label for="firstName" class="required">First name:</label>
+        <input type="text" id="firstName" name="firstName">
+        <span class="error" id="firstNameError">Please enter a valid first name.</span><br><br>
+
+        <label for="lastName" class="required">Last name:</label>
+        <input type="text" id="lastName" name="lastName">
+        <span class="error" id="lastNameError">Please enter a valid last name.</span><br><br>
+
+        <label for="email" class="required">Your email:</label>
+        <input type="text" id="email" name="email">
+        <span class="error" id="emailError">Please enter a valid email.</span>
+    </fieldset>
+    <br>
+    <fieldset>
+        <legend>Quiz questions</legend>
+
+        <div class="question-container">
+            <p>1. What is the keyword to declare a variable in JavaScript? <span style="color:red;">*</span></p>
+            <input type="radio" name="question1" value="let" id="question1_0">
+            <label for="question1_0">let</label><br>
+            <input type="radio" name="question1" value="define" id="question1_1">
+            <label for="question1_1">define</label><br>
+            <input type="radio" name="question1" value="declare" id="question1_2">
+            <label for="question1_2">declare</label><br>
+            <span class="error" id="question1Error">This question is required.</span>
+            <p class="correct-answer" style="display:none;"></p>
+        </div>
+
+        <div class="question-container">
+            <p>2. Which of the following are data types in JavaScript? <span style="color:red;">*</span></p>
+            <input type="checkbox" name="question2" value="String" id="question2_0">
+            <label for="question2_0">String</label><br>
+            <input type="checkbox" name="question2" value="Element" id="question2_1">
+            <label for="question2_1">Element</label><br>
+            <input type="checkbox" name="question2" value="Boolean" id="question2_2">
+            <label for="question2_2">Boolean</label><br>
+            <span class="error" id="question2Error">This question is required.</span>
+            <p class="correct-answer" style="display:none;"></p>
+        </div>
+
+        <div class="question-container">
+            <p>3. What is the output of `console.log(typeof null)` in JavaScript? <span style="color:red;">*</span></p>
+            <input type="text" id="question3" name="question3">
+            <span class="error" id="question3Error">This question is required.</span>
+            <p class="correct-answer" style="display:none;"></p>
+        </div>
+
+        <div class="question-container">
+            <p>4. Select the JavaScript frameworks or libraries:</p>
+            <input type="checkbox" name="question4" value="React" id="question4_0">
+            <label for="question4_0">React</label><br>
+            <input type="checkbox" name="question4" value="Laravel" id="question4_1">
+            <label for="question4_1">Laravel</label><br>
+            <input type="checkbox" name="question4" value="Vue" id="question4_2">
+            <label for="question4_2">Vue</label><br>
+            <p class="correct-answer" style="display:none;"></p>
+        </div>
+
+        <div class="question-container">
+            <p>5. Which method is used to add an item to the end of an array in JavaScript?</p>
+            <input type="radio" name="question5" value="push" id="question5_0">
+            <label for="question5_0">push</label><br>
+            <input type="radio" name="question5" value="pop" id="question5_1">
+            <label for="question5_1">pop</label><br>
+            <input type="radio" name="question5" value="shift" id="question5_2">
+            <label for="question5_2">shift</label><br>
+            <p class="correct-answer" style="display:none;"></p>
+        </div>
+
+    </fieldset>
+    <input type="submit" value="Check" style="margin-top: 20px;">
+</form>
+<p class="success" id="successMessage">Congratulations!</p>
+</body>
+</html>

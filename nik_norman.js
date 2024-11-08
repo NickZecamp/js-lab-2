@@ -4,6 +4,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const lastName = document.getElementById('lastName');
     const email = document.getElementById('email');
     const successMessage = document.getElementById('successMessage');
+    const submitButton = document.getElementById('submitButton');
+
+    submitButton.disabled = true;
+
+    function validateForm() {
+        const isFirstNameValid = /^[A-Za-z]+$/.test(firstName.value.trim());
+        const isLastNameValid = /^[A-Za-z]+$/.test(lastName.value.trim());
+        const isEmailValid = /^\S+@\S+\.\S+$/.test(email.value.trim());
+        const isQuestion1Answered = document.querySelector('input[name="question1"]:checked') !== null;
+        const isQuestion2Answered = document.querySelectorAll('input[name="question2"]:checked').length > 0;
+
+        submitButton.disabled = !(isFirstNameValid && isLastNameValid && isEmailValid && isQuestion1Answered && isQuestion2Answered);
+    }
+
+    [firstName, lastName, email].forEach(input => {
+        input.addEventListener('input', validateForm);
+    });
+
+    document.querySelectorAll('input[name="question1"], input[name="question2"]').forEach(input => {
+        input.addEventListener('change', validateForm);
+    });
 
     form.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -26,12 +47,17 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('emailError').style.display = 'inline';
             valid = false;
         }
+
         const q1Answer = document.querySelector('input[name="question1"]:checked');
         if (q1Answer && q1Answer.value === "let") {
             score += 1;
             displayAnswerFeedback("question1", true);
         } else {
             displayAnswerFeedback("question1", false, "let");
+            if (!q1Answer) {
+                document.getElementById('question1Error').style.display = 'inline';
+                valid = false;
+            }
         }
 
         const q2Answers = Array.from(document.querySelectorAll('input[name="question2"]:checked')).map(input => input.value);
@@ -40,6 +66,10 @@ document.addEventListener('DOMContentLoaded', function() {
             displayAnswerFeedback("question2", true);
         } else {
             displayAnswerFeedback("question2", false, "String, Boolean");
+            if (q2Answers.length === 0) {
+                document.getElementById('question2Error').style.display = 'inline';
+                valid = false;
+            }
         }
 
         const q3Answer = document.getElementById("question3").value.trim().toLowerCase();
@@ -67,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         if (valid) {
-            successMessage.textContent = `Congratulations! You scored ${score} out of 5 points.`;
+            successMessage.textContent = `You scored ${score} out of 5 points.`;
             successMessage.style.display = 'block';
         }
     });
